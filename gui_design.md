@@ -1,0 +1,6 @@
+- kill switch
+- voltage vs time graph
+- current vs time graph
+- power vs time graph
+- incoming packets from operators
+- outgoing packets to operators
