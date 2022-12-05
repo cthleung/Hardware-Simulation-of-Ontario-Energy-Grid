@@ -128,23 +128,24 @@ void loop() {
     // When you recieve data back send over PWM to effect circuit
 
     //   // creat JSON message for Socket.IO (event)
-    //   DynamicJsonDocument doc(1024);
-    //   JsonArray array = doc.to<JsonArray>();
+       DynamicJsonDocument doc(1024);
+       JsonArray array = doc.to<JsonArray>();
 
     //   // add evnet name
     //   // Hint: socket.on('event_name', ....
-    //   array.add("output_value");
-    //   array.add("80");
+       array.add("output_value");
+       array.add("80");
 
 
-    //   String output;
-    //   serializeJson(doc, output);
+       String output;
+       serializeJson(doc, output);
 
     //   // Send event
-    //   socketIO.sendEVENT(output);
+       socketIO.sendEVENT(output);
 
     //   // Print JSON for debugging
     //   Serial.println(output);
+    delay(3000);
     return;
   }
 
