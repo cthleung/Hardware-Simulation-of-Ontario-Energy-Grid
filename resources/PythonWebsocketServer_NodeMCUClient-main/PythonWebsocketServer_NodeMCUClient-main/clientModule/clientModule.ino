@@ -11,7 +11,9 @@ const char* ssid = "4US2 WiFi"; //Enter SSID
 const char* password = ""; //Enter Password
 
 // Select the server IP address and port according to your local network
-IPAddress serverIP(192, 168, 1, 102);
+IPAddress serverIP(192, 168, 1, 104);
+//IPAddress serverIP(172, 18, 114, 8);
+
 uint16_t  serverPort = 5001;
 
 // Initalize SocketIO client
@@ -68,7 +70,7 @@ void handleNewEvent(char* jsonEvent) {
   }
 
   if (strcmp(doc[0], "date") == 0) {
-    Serial.print("Received Event: date");
+    Serial.print("date,");
     const char* date = doc[1];
     Serial.println(date);
     RECEIVED_DATE = true;
@@ -80,7 +82,7 @@ void handleNewEvent(char* jsonEvent) {
   }
 
   if (strcmp(doc[0], "percent_max_output") == 0) {
-    Serial.print("Recieved Event: percent_max_output");
+    Serial.print("percent_max_output,");
     const int percentage = doc[1];
     Serial.println(percentage);
     return;
@@ -127,7 +129,7 @@ void loop() {
 
 
   if (RECEIVED_DATE) {
-    
+
     static byte ndx = 0;
     char endMarker = '\n';
     char rc;

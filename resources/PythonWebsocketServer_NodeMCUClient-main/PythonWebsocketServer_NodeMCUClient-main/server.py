@@ -27,21 +27,21 @@ def send_percentage_of_max_output(output):
     
 
 @socketio.on('connect')
-def connected(sio):
+def connected():
     """
     Connect Event
     """
-    print(f'Client {sio} connected')
+    print(f'Client connected')
     
     send_simulation_date()
 
     
 @socketio.on('disconnect')
-def disconnected(sio):
+def disconnected():
     """
     Disconnect Event
     """
-    print(f'Client {sio} disconnected')
+    print(f'Client disconnected')
 
 
 @socketio.on('output_value')
@@ -52,7 +52,17 @@ def recieve_client_output(msg):
     print(f'Recieved Output: {msg}')
 
     send_percentage_of_max_output(50)
+    
 
+
+@socketio.on('hydro1_power_output')
+def recieve_hydro_client_output(msg):
+    """
+    Recieve Hourly output from each client
+    """
+    print(f'Recieved Hydro 1 Power Output: {msg}')
+
+    send_percentage_of_max_output(50)
 
 if __name__=="__main__":
     
