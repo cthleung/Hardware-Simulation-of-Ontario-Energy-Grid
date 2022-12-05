@@ -46,7 +46,7 @@ def serialUpdater():
 
     # Initialize Serial Comms
     ser = serial.Serial(
-        port='COM5', 
+        port='COM4', 
         baudrate=115200, 
         timeout=1
     )

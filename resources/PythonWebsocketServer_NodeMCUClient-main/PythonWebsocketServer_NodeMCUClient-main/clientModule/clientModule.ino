@@ -121,32 +121,78 @@ void loop() {
 
   socketIO.loop();
 
+  const byte numChars = 32;
+  char receivedChars[numChars];   // an array to store the received 
+  boolean newData = false;
+
 
   if (RECEIVED_DATE) {
     
-    // Package and send to server every 12.5 seconds
+    static byte ndx = 0;
+    char endMarker = '\n';
+    char rc;
+    
+    while (Serial.available() > 0 && newData == false) {
+        rc = Serial.read();
+
+        if (rc != endMarker) {
+            receivedChars[ndx] = rc;
+            ndx++;
+            if (ndx >= numChars) {
+                ndx = numChars - 1;
+            }
+        }
+        else {
+            receivedChars[ndx] = '\0'; // terminate the string
+            ndx = 0;
+            newData = true;
+        }
+    }
+
+    if (newData == true) {
+          // Package and send to server every 12.5 seconds
     // When you recieve data back send over PWM to effect circuit
 
     //   // creat JSON message for Socket.IO (event)
-       DynamicJsonDocument doc(1024);
-       JsonArray array = doc.to<JsonArray>();
+      DynamicJsonDocument doc(1024);
+      JsonArray array = doc.to<JsonArray>();
+      
+      //   // add event name
+      //   // Hint: socket.on('event_name', ....
+      array.add("hydro1_power_output");
+      array.add(receivedChars);
+      
+      String output;
+      serializeJson(doc, output);
+      
+      //   // Send event
+      socketIO.sendEVENT(output);
+      newData = false;
 
-    //   // add evnet name
-    //   // Hint: socket.on('event_name', ....
-       array.add("output_value");
-       array.add("80");
-
-
-       String output;
-       serializeJson(doc, output);
-
-    //   // Send event
-       socketIO.sendEVENT(output);
+      delay(3000);
 
     //   // Print JSON for debugging
     //   Serial.println(output);
-    delay(3000);
-    return;
+//    delay(3000);
+      
+      return;
+    }
+
+
+//       DynamicJsonDocument doc(1024);
+//       JsonArray array = doc.to<JsonArray>();
+
+    //   // add event name
+    //   // Hint: socket.on('event_name', ....
+//       array.add("hydro1_power_output");
+//       array.add(pythonData);
+//
+//
+//       String output;
+//       serializeJson(doc, output);
+
+    //   // Send event
+//       socketIO.sendEVENT(output);
   }
 
   // For value in 24 data values 
