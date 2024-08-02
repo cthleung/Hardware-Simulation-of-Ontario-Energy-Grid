@@ -1,6 +1,6 @@
 # Smart Systems Project: Simulation of Ontario Energy Grid
 
-This project involved simulating the Ontario energy grid using IoT sensors, embedded electronics, and data science tools. The aim was to predict electricity demand according to date, time, and weather conditions, and develop a visualization system for electricity demand and supply in real-time.
+This project involved simulating the Ontario energy grid using IoT sensors, embedded electronics, and data science tools. The aim was to predict electricity demand according to date, time, and weather conditions, and develop a visualization system for electricity demand and supply in real-time. A PID feedback controller was set up and implemented on another Arduino to simulate the power response of various suppliers in the grid (hydro, nuclear, wind/solar).
 
 ## Table of Contents
 - Introduction
